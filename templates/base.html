@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    {% block meta %}
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="Django test task application">
+    {% endblock meta %}
+    {% block extra_meta %}{% endblock %}
+    {% block style %}
+        <!--[if lt IE 9]>
+			<script src="js/html5.js"></script>
+		<![endif]-->
+        <link rel="stylesheet" href="{% static 'web_site/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'web_site/css/styles.css' %}">
+    {% endblock style %}
+    {% block extra_style %}{% endblock %}
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+<div id="wrap">
+    {% block header %}
+        {% include 'header.html' %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock %}
+    {% block script %}
+        <script src="{% static 'web_site/js/jquery-2.1.1.min.js' %}"></script>
+        <script src="{% static 'web_site/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'web_site/js/scripts.js' %}"></script>
+    {% endblock script %}
+    {% block extra_script %}{% endblock %}
+</div>
+</body>
+</html>

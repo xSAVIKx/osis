@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block extra_style %}
+    <link href="{% static 'web_site/css/nano_galery/nanogallery_light.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="thumbnail">
+                    <img src="{{ item.logo_image.url }}" alt="{{ item.title }}">
+
+                    <div class="caption">
+                        <h3>{{ item.title }}</h3>
+                        <h5>Цена: {{ item.price }} грн.</h5>
+
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="nanoGallery">
+                {% for item_image in item.ItemImages.all %}
+                    <a href="{{ item_image.image_file.url }}"
+                       data-ngthumb="{{ item_image.image_file.thumbnail.url }}"
+                       data-ngID="{{ forloop.counter }}">{{ item_image.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block extra_script %}
+    <script src="{% static 'web_site/js/nano_galery/jquery.nanogallery.min.js' %}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $("#nanoGallery").nanoGallery({
+                thumbnailWidth: 190, thumbnailHeight: 190,
+                maxWidth: 500,
+                colorScheme: 'light',
+                breadcrumbAutoHideTopLevel: true,
+                thumbnailHoverEffect: [{name: 'slideRight', duration: 500}, {name: 'labelAppear75'}],
+                theme: 'light',
+                i18n: {thumbnailImageDescription: 'View Photo', thumbnailAlbumDescription: 'Open Album'},
+                thumbnailLabel: {display: true, position: 'overImageOnMiddle', hideIcons: true, align: 'center'}
+            });
+        });
+    </script>
+{% endblock extra_script %}
