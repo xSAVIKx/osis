@@ -9,7 +9,8 @@ from osis import settings
 
 
 urlpatterns = patterns('',
+                       url(r'^admin_tools/', include('admin_tools.urls')),
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'', include(web_site_url)),
                        url(r'^send_email$', ContactUsView.as_view(), name='send_email'),
+                       url(r'', include(web_site_url)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
