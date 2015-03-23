@@ -171,3 +171,15 @@ h1 {
 .scroll-top a:link, .scroll-top a:visited {
     color: #222;
 }
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+}
+
+.flex-row .thumbnail {
+    min-width: 240px;
+    min-height: 280px;
+}

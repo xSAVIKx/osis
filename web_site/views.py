@@ -34,6 +34,28 @@ class GalleryView(TemplateView):
 
 class ItemListView(ListView):
     model = Item
+    items_in_row = 4
+
+    def get_context_data(self, **kwargs):
+        kwargs = super(ItemListView, self).get_context_data(**kwargs)
+        kwargs['items_in_row'] = self.items_in_row
+        kwargs['managed_items'] = self.manage_by_rows()
+        return kwargs
+
+    def manage_by_rows(self):
+        managed_items = []
+        item_block = []
+        if len(self.object_list) < self.items_in_row:
+            for item in self.object_list:
+                item_block.append(item)
+            managed_items.append(item_block)
+        else:
+            for index, item in enumerate(self.object_list):
+                if index % self.items_in_row == 0 and index > 0:
+                    managed_items.append(item_block)
+                    item_block = []
+                item_block.append(item)
+        return managed_items
 
 
 class ItemDetailedView(DetailView):

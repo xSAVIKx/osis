@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.contrib.contenttypes import generic
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -27,11 +28,37 @@ class ThumbnailAdminMixin(object):
     admin_thumbnail.allow_tags = True
 
 
+class Type(models.Model):
+    title = models.CharField(max_length=50)
+    parent_type = models.ForeignKey('Type', related_name='parent type', null=True, blank=True)
+
+
+class Characteristic(models.Model):
+    title = models.CharField(max_length=50)
+
+
+class StringCharacteristicValue(models.Model):
+    value = models.CharField(max_length=200)
+    characteristic = generic.GenericRelation('Characteristic')
+
+
+class IntegerCharacteristicValue(models.Model):
+    value = models.IntegerField()
+    characteristic = generic.GenericRelation('Characteristic')
+
+
+class BooleanCharacteristicValue(models.Model):
+    value = models.BooleanField(default=False)
+    characteristic = generic.GenericRelation('Characteristic')
+
+
 class Item(models.Model, ThumbnailAdminMixin):
     upload_dir = 'item_images'
     title = models.CharField(max_length=40)
-    price = models.PositiveIntegerField(blank=True, default=0)
-    description = models.TextField(max_length=200, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
+    description = models.TextField(max_length=400, blank=True)
+    description_short = models.TextField(max_length=50, default='')
+    type = models.ForeignKey('Type', blank=True, null=True)
     logo_image = ThumbnailerImageField(upload_to=UploadTo(upload_dir))
     admin_thumbnail_field_name = 'logo_image'
 

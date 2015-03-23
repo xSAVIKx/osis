@@ -60,7 +60,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'web_site.util.redirect_middleware.RedirectMiddleware'
+    # 'web_site.util.redirect_middleware.RedirectMiddleware'
 )
 
 ROOT_URLCONF = 'osis.urls'
